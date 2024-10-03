@@ -1,16 +1,27 @@
+import { factory } from '@factory'
 import { zValidator } from '@hono/zod-validator'
-import { createFactory } from 'hono/factory'
+import { Left, Right } from 'purify-ts'
 import { z } from 'zod'
 
 import { helloWorld } from './helloWorld.code'
-
-const factory = createFactory()
 
 const schema = z.object({
   name: z.string(),
   age: z.coerce.number()
 })
 
-export const helloWorldHandler = factory.createHandlers(zValidator('query', schema), (c) => {
-  return c.json(helloWorld({ logger: console })(c.req.valid('query')))
-})
+const dependencies = {
+  logger: (message: string) =>
+    message === 'error'
+      ? Left({
+          type: 'dependencyError' as const,
+          message: 'Failed to log',
+          dependency: 'logger',
+          input: null
+        })
+      : Right(undefined)
+}
+
+export const helloWorldHandler = factory.createHandlers(zValidator('query', schema), (c) =>
+  c.var.customResponse(helloWorld(dependencies)(c.req.valid('query')))
+)

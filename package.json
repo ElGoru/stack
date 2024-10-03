@@ -7,6 +7,7 @@
     "@hono/zod-validator": "0.3.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "hono": "^4.6.3",
+    "purify-ts": "2.1.0",
     "zod": "3.23.8"
   },
   "devDependencies": {
