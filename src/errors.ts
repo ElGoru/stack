@@ -19,25 +19,27 @@ type ValidationError = {
 
 export type AppError = DependencyError | ValidationError
 
+const errorSwitch =
+  (jsonBuilder: (value: JSONValue, statusCode: StatusCode) => TypedResponse<JSONValue, StatusCode, 'json'>) =>
+  (error: AppError): TypedResponse<JSONValue, StatusCode, 'json'> => {
+    switch (error.type) {
+      case 'dependencyError':
+        return jsonBuilder({ message: error.message }, 500)
+      case 'validationError':
+        return jsonBuilder({ message: error.message }, 400)
+      default:
+        return jsonBuilder({ message: 'Unknown error' }, 500)
+    }
+  }
+
 export const errorMapMiddleware = factory.createMiddleware(async (c, next) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const x = <T extends JSONValue>(input: Either<AppError, T>): TypedResponse<T, StatusCode, 'json'> =>
-    input
-      .map((value) => c.json(value))
-      .mapLeft((error) => {
-        switch (error.type) {
-          case 'dependencyError':
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            return c.json<JSONValue>({ message: error.message }, 500)
-          case 'validationError':
-            return c.json({ message: error.message }, 400)
-          default:
-            return c.json({ message: 'Unknown error' }, 500)
-        }
-      })
-      .extract()
-  c.set('customResponse', x)
+  c.set(
+    'appResponse',
+    <T extends JSONValue>(input: Either<AppError, T>): TypedResponse<T, StatusCode, 'json'> =>
+      input
+        .map(c.json as (data: T) => TypedResponse<T, StatusCode, 'json'>)
+        .mapLeft(errorSwitch(c.json) as (error: AppError) => TypedResponse<T, StatusCode, 'json'>)
+        .extract()
+  )
   await next()
 })

@@ -8,7 +8,7 @@ import { AppError } from './errors'
 
 type CustomEnv = {
   Variables: {
-    customResponse: <T extends JSONValue>(input: Either<AppError, T>) => TypedResponse<T, StatusCode, 'json'>
+    appResponse: <T extends JSONValue>(input: Either<AppError, T>) => TypedResponse<T, StatusCode, 'json'>
   }
 }
 

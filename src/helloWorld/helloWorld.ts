@@ -1,5 +1,5 @@
 import { factory } from '@factory'
-import { zValidator } from '@hono/zod-validator'
+import { queryValidator } from '@validator'
 import { Left, Right } from 'purify-ts'
 import { z } from 'zod'
 
@@ -22,6 +22,6 @@ const dependencies = {
       : Right(undefined)
 }
 
-export const helloWorldHandler = factory.createHandlers(zValidator('query', schema), (c) =>
-  c.var.customResponse(helloWorld(dependencies)(c.req.valid('query')))
+export const helloWorldHandler = factory.createHandlers(queryValidator(schema), (c) =>
+  c.var.appResponse(helloWorld(dependencies)(c.req.valid('query')))
 )
