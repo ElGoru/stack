@@ -1,14 +1,16 @@
+import { AppResponse } from '@appResponse'
 import { TypedResponse } from 'hono'
 import { createFactory } from 'hono/factory'
-import { StatusCode } from 'hono/utils/http-status'
-import { JSONValue } from 'hono/utils/types'
-import { Either } from 'purify-ts'
-
-import { AppError } from './errors'
+import { ClientErrorStatusCode, ServerErrorStatusCode, SuccessStatusCode } from 'hono/utils/http-status'
+import { JSONObject } from 'hono/utils/types'
 
 type CustomEnv = {
   Variables: {
-    appResponse: <T extends JSONValue>(input: Either<AppError, T>) => TypedResponse<T, StatusCode, 'json'>
+    appResponse: <T>(
+      input: AppResponse<T>
+    ) =>
+      | TypedResponse<T, SuccessStatusCode, 'json'>
+      | TypedResponse<JSONObject, ClientErrorStatusCode | ServerErrorStatusCode, 'json'>
   }
 }
 

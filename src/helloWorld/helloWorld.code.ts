@@ -1,9 +1,8 @@
+import { AppResponse, DependencyError } from '@appResponse'
 import { Either } from 'purify-ts'
 
-import { AppError } from '../errors'
-
 type Dependencies = {
-  logger: (message: string) => Either<AppError, void>
+  logger: (message: string) => Either<DependencyError, void>
 }
 
 type Input = {
@@ -11,11 +10,9 @@ type Input = {
   age: number
 }
 
-type Output = Either<AppError, { message: string }>
+type Output = AppResponse<{ message: string }>
 
-export const helloWorld =
-  (dependencies: Dependencies) =>
-  (input: Input): Output =>
-    dependencies.logger(input.name).map(() => ({
-      message: `Hello ${input.name}, you are ${input.age} years old`
-    }))
+export const helloWorld = (dependencies: Dependencies) => (input: Input) =>
+  dependencies.logger(input.name).map(() => ({
+    message: `Hello ${input.name}, you are ${input.age} years old`
+  })) satisfies Output

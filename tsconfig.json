@@ -6,7 +6,8 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@factory": ["./src/factory"],
-      "@validator": ["./src/validator"]
+      "@validator": ["./src/validator"],
+      "@appResponse": ["./src/appResponse"]
     }
   }
 }
