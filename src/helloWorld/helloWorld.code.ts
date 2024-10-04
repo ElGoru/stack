@@ -1,8 +1,8 @@
-import { AppResponse, DependencyError } from '@appResponse'
-import { Either } from 'purify-ts'
+import { DependencyError } from '@appResponse'
+import { EitherAsync } from 'purify-ts'
 
 type Dependencies = {
-  logger: (message: string) => Either<DependencyError, void>
+  logger: (message: string) => EitherAsync<DependencyError, void>
 }
 
 type Input = {
@@ -10,7 +10,7 @@ type Input = {
   age: number
 }
 
-type Output = AppResponse<{ message: string }>
+type Output = EitherAsync<DependencyError, { message: string }>
 
 export const helloWorld = (dependencies: Dependencies) => (input: Input) =>
   dependencies.logger(input.name).map(() => ({

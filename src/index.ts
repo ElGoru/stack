@@ -2,10 +2,18 @@ import { factory } from '@factory'
 import { hc } from 'hono/client'
 
 import { appResponseMiddleware } from './appResponse'
+import { dbClientMiddleware } from './dbClient'
 import { helloWorldHandler } from './helloWorld/helloWorld'
+
+declare module 'bun' {
+  interface Env {
+    DB_CONNECTION_STRING: string
+  }
+}
 
 const app = factory
   .createApp()
+  .use(dbClientMiddleware)
   .use(appResponseMiddleware)
   .get('/', ...helloWorldHandler)
 

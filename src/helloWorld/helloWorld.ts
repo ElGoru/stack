@@ -1,6 +1,7 @@
+import { person } from '@dbSchema'
 import { factory } from '@factory'
 import { queryValidator } from '@validator'
-import { Left, Right } from 'purify-ts'
+import { EitherAsync } from 'purify-ts'
 import { z } from 'zod'
 
 import { helloWorld } from './helloWorld.code'
@@ -10,18 +11,14 @@ const schema = z.object({
   age: z.coerce.number()
 })
 
-const dependencies = {
-  logger: (message: string) =>
-    message === 'error'
-      ? Left({
-          type: 'dependencyError' as const,
-          message: 'Failed to log',
-          dependency: 'logger',
-          input: null
-        })
-      : Right(undefined)
-}
+export const helloWorldHandler = factory.createHandlers(queryValidator(schema), async (c) => {
+  const input = c.req.valid('query')
 
-export const helloWorldHandler = factory.createHandlers(queryValidator(schema), (c) =>
-  c.var.appResponse(helloWorld(dependencies)(c.req.valid('query')))
-)
+  const dependencies = {
+    logger: (message: string) =>
+      EitherAsync(() => c.var.dbClient.insert(person).values({ name: message }).execute())
+        .map(() => undefined)
+        .mapLeft((error) => ({ type: 'dependencyError' as const, message: `${error}`, dependency: 'db', input }))
+  }
+  return c.var.appResponse(await helloWorld(dependencies)(input))
+})

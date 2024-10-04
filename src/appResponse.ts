@@ -16,12 +16,10 @@ export type ValidationError = {
   input: unknown
 }
 
-type AppError = DependencyError | ValidationError
-
-export type AppResponse<T> = Either<AppError, T>
+export type AppError = DependencyError | ValidationError
 
 export const appResponseMiddleware = factory.createMiddleware(async (c, next) => {
-  c.set('appResponse', <T>(input: AppResponse<T>) =>
+  c.set('appResponse', <T>(input: Either<AppError, T>) =>
     input
       .map(c.json as (data: T) => TypedResponse<T, SuccessStatusCode, 'json'>)
       .mapLeft((error) => {
