@@ -3,7 +3,7 @@ import { hc } from 'hono/client'
 
 import { appResponseMiddleware } from './appResponse'
 import { dbClientMiddleware } from './dbClient'
-import { helloWorldHandler } from './helloWorld/helloWorld'
+import { helloWorldHandler } from './helloWorld/helloWorld.handler'
 
 declare module 'bun' {
   interface Env {

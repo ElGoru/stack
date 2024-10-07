@@ -15,6 +15,18 @@ export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.s
     'no-console': 'warn',
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        ignoreRestSiblings: true
+      }
+    ]
   }
 })

@@ -9,7 +9,8 @@
       "@factory": ["./src/factory"],
       "@validator": ["./src/validator"],
       "@appResponse": ["./src/appResponse"],
-      "@dbSchema": ["./drizzle/schema"]
+      "@dbSchema": ["./drizzle/schema"],
+      "@testHelpers": ["./src/helpers/test"]
     }
   }
 }

@@ -4,14 +4,14 @@ import { SuccessStatusCode } from 'hono/utils/http-status'
 import { Either } from 'purify-ts'
 
 export type DependencyError = {
-  type: 'dependencyError'
+  type: 'DependencyError'
   message: string
   dependency: string
   input: unknown
 }
 
 export type ValidationError = {
-  type: 'validationError'
+  type: 'ValidationError'
   message: string
   input: unknown
 }
@@ -24,9 +24,9 @@ export const appResponseMiddleware = factory.createMiddleware(async (c, next) =>
       .map(c.json as (data: T) => TypedResponse<T, SuccessStatusCode, 'json'>)
       .mapLeft((error) => {
         switch (error.type) {
-          case 'dependencyError':
+          case 'DependencyError':
             return c.json({ message: error.message }, 500)
-          case 'validationError':
+          case 'ValidationError':
             return c.json({ message: error.message }, 400)
           default:
             return c.json({ message: 'Unknown error' }, 500)
