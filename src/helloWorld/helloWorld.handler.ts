@@ -15,8 +15,8 @@ export const helloWorldHandler = factory.createHandlers(queryValidator(schema), 
   const input = c.req.valid('query')
 
   const dependencies = {
-    logger: (message: string) =>
-      EitherAsync(() => c.var.dbClient.insert(person).values({ name: message }).execute())
+    saveName: (name: string) =>
+      EitherAsync(() => c.var.dbClient.insert(person).values({ name }).execute())
         .map(() => undefined)
         .mapLeft((error) => ({ type: 'DependencyError' as const, message: `${error}`, dependency: 'db', input }))
   }

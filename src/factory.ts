@@ -1,20 +1,28 @@
-import { AppError } from '@appResponse'
+import * as schema from '@dbSchema'
+import { DependencyError, ValidationError } from '@types'
+import { ExtractTablesWithRelations } from 'drizzle-orm'
+import { PgDatabase } from 'drizzle-orm/pg-core'
+import { PostgresJsQueryResultHKT } from 'drizzle-orm/postgres-js'
 import { TypedResponse } from 'hono'
 import { createFactory } from 'hono/factory'
 import { ClientErrorStatusCode, ServerErrorStatusCode, SuccessStatusCode } from 'hono/utils/http-status'
-import { JSONObject } from 'hono/utils/types'
 import { Either } from 'purify-ts'
 
-import { DrizzleClient } from './dbClient'
+type Logger = (type: 'log' | 'info' | 'success' | 'error', title: string) => (data: unknown) => void
+
+type DBClient = PgDatabase<PostgresJsQueryResultHKT, typeof schema, ExtractTablesWithRelations<typeof schema>>
+
+type AppResponse = <T>(
+  input: Either<DependencyError | ValidationError, T>
+) =>
+  | TypedResponse<T, SuccessStatusCode, 'json'>
+  | TypedResponse<{ [key: string]: unknown }, ClientErrorStatusCode | ServerErrorStatusCode, 'json'>
 
 type CustomEnv = {
   Variables: {
-    dbClient: DrizzleClient
-    appResponse: <T>(
-      input: Either<AppError, T>
-    ) =>
-      | TypedResponse<T, SuccessStatusCode, 'json'>
-      | TypedResponse<JSONObject, ClientErrorStatusCode | ServerErrorStatusCode, 'json'>
+    logger: Logger
+    dbClient: DBClient
+    appResponse: AppResponse
   }
 }
 

@@ -5,7 +5,7 @@ import { EitherAsync, Left, Right } from 'purify-ts'
 import { helloWorld } from './helloWorld'
 
 const mockDependencies: MockDependencies<typeof helloWorld> = (overrides) => ({
-  logger: mock((_: string) => EitherAsync.liftEither(Right(undefined))),
+  saveName: mock((_: string) => EitherAsync.liftEither(Right(undefined))),
   ...overrides
 })
 
@@ -22,19 +22,19 @@ describe('helloWorld', () => {
 
     await helloWorld(dependencies)(input)
 
-    expect(dependencies.logger).toHaveBeenCalledWith('Alice')
+    expect(dependencies.saveName).toHaveBeenCalledWith('Alice')
   })
 
   test('return dependency error', async () => {
     const error = { type: 'DependencyError' as const, message: 'logger error', dependency: 'logger', input: 'Alice' }
     const dependencies = mockDependencies({
-      logger: mock((_) => EitherAsync.liftEither(Left(error)))
+      saveName: mock((_) => EitherAsync.liftEither(Left(error)))
     })
     const input = mockInput()
 
     const res = await helloWorld(dependencies)(input)
 
-    expect(dependencies.logger).toHaveBeenCalledWith('Alice')
+    expect(dependencies.saveName).toHaveBeenCalledWith('Alice')
     expect(res.extract()).toEqual(error)
   })
 })

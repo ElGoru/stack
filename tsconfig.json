@@ -5,10 +5,11 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "forceConsistentCasingInFileNames": true,
+    "maxNodeModuleJsDepth": 10,
     "paths": {
       "@factory": ["./src/factory"],
-      "@validator": ["./src/validator"],
-      "@appResponse": ["./src/appResponse"],
+      "@validator": ["./src/middleware/validator"],
+      "@types": ["./src/types"],
       "@dbSchema": ["./drizzle/schema"],
       "@testHelpers": ["./src/helpers/test"]
     }

@@ -1,9 +1,10 @@
 import { factory } from '@factory'
 import { hc } from 'hono/client'
 
-import { appResponseMiddleware } from './appResponse'
-import { dbClientMiddleware } from './dbClient'
 import { helloWorldHandler } from './helloWorld/helloWorld.handler'
+import { appResponseMiddleware } from './middleware/appResponse'
+import { dbClientMiddleware } from './middleware/dbClient'
+import { loggerMiddleware } from './middleware/logger'
 
 declare module 'bun' {
   interface Env {
@@ -13,6 +14,7 @@ declare module 'bun' {
 
 const app = factory
   .createApp()
+  .use(loggerMiddleware)
   .use(dbClientMiddleware)
   .use(appResponseMiddleware)
   .get('/', ...helloWorldHandler)
