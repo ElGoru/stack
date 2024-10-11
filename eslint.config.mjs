@@ -1,5 +1,5 @@
 // @ts-check
-
+// TODO: make file .ts
 import eslint from '@eslint/js'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import tseslint from 'typescript-eslint'

@@ -4,6 +4,7 @@ export const appResponseMiddleware = factory.createMiddleware(async (c, next) =>
   c.set('appResponse', (input) =>
     input
       .ifRight(c.var.logger('success', 'appResponse'))
+      //TODO: remove 'as object'
       .map((data) => c.json(data as object, 200))
       .ifLeft(c.var.logger('error', 'appError'))
       .mapLeft((error) => {
