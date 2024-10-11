@@ -12,7 +12,9 @@ type Input = {
 
 type Output = EitherAsync<DependencyError, { message: string }>
 
-export const helloWorld = (dependencies: Dependencies) => (input: Input) =>
-  dependencies.saveName(input.name).map(() => ({
-    message: `Hello ${input.name}, you are ${input.age} years old`
-  })) satisfies Output
+export const helloWorld =
+  (dependencies: Dependencies) =>
+  (input: Input): Output =>
+    dependencies.saveName(input.name).map(() => ({
+      message: `Hello ${input.name}, you are ${input.age} years old`
+    }))
