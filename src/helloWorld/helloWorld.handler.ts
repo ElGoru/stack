@@ -1,4 +1,4 @@
-import { person } from '@dbSchema'
+import { helloWorld as helloWorldTable } from '@dbSchema'
 import { factory } from '@factory'
 import { queryValidator } from '@validator'
 import { EitherAsync } from 'purify-ts'
@@ -16,7 +16,7 @@ export const helloWorldHandler = factory.createHandlers(queryValidator(schema), 
 
   const dependencies = {
     saveName: (name: string) =>
-      EitherAsync(() => c.var.dbClient.insert(person).values({ name }).execute())
+      EitherAsync(() => c.var.dbClient.insert(helloWorldTable).values({ name }).execute())
         .map(() => undefined)
         .mapLeft((error) => ({ type: 'DependencyError' as const, message: `${error}`, dependency: 'db', input }))
   }
