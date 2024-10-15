@@ -4,5 +4,8 @@
   "editor.codeActionsOnSave": {
     "source.sortImports": "explicit",
     "source.fixAll.eslint": "explicit"
+  },
+  "eslint.options": {
+    "flags": ["unstable_ts_config"]
   }
 }

@@ -1,10 +1,16 @@
-// @ts-check
-// TODO: make file .ts
 import eslint from '@eslint/js'
+import functional from 'eslint-plugin-functional'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict, {
+  extends: [functional.configs.externalTypescriptRecommended, functional.configs.stylistic, functional.configs.lite],
+  languageOptions: {
+    parser: tseslint.parser,
+    parserOptions: {
+      projectService: true
+    }
+  },
   plugins: {
     'simple-import-sort': simpleImportSort
   },

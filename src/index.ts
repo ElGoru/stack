@@ -26,10 +26,10 @@ export type AppType = typeof app
 const client = hc<AppType>('http://localhost:3000/')
 client.index.$get({ query: { name: 'error', age: '30' } }).then(async (res) => {
   if (res.ok) {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console, functional/no-return-void
     res.json().then((x) => console.log(x))
   } else {
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console, functional/no-return-void
     res.json().then((x) => console.error(x))
   }
 })

@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-return-void */
 import { MockDependencies, MockInput } from '@testHelpers'
 import { describe, expect, mock, test } from 'bun:test'
 import { EitherAsync, Left, Right } from 'purify-ts'

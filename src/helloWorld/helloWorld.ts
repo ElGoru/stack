@@ -5,10 +5,10 @@ type Dependencies = {
   saveName: (name: string) => EitherAsync<DependencyError, void>
 }
 
-type Input = {
+type Input = Readonly<{
   name: string
   age: number
-}
+}>
 
 type Output = EitherAsync<DependencyError, { message: string }>
 

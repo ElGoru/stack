@@ -29,24 +29,29 @@ const tryDecodeURI = (str: string): string => {
 const getPath = (request: Request): string => {
   const url = request.url
   const start = url.indexOf('/', 8)
-  let i = start
-  for (; i < url.length; i++) {
-    const charCode = url.charCodeAt(i)
-    if (charCode === 37) {
-      const queryIndex = url.indexOf('?', i)
-      const path = url.slice(start, queryIndex === -1 ? undefined : queryIndex)
-      return tryDecodeURI(path.includes('%25') ? path.replace(/%25/g, '%2525') : path)
-    } else if (charCode === 63) {
-      break
-    }
-  }
-  return url.slice(start, i)
+  const path = url
+    .slice(start)
+    .split('')
+    .map((char, i) => {
+      const charCode = char.charCodeAt(0)
+      if (charCode === 37) {
+        const queryIndex = url.indexOf('?', start + i)
+        const pat = url.slice(start, queryIndex === -1 ? undefined : queryIndex)
+        return tryDecodeURI(pat.includes('%25') ? pat.replace(/%25/g, '%2525') : pat)
+      } else if (charCode === 63) {
+        return url.slice(start, start + i)
+      }
+      return ''
+    })
+    .join('')
+  return path || url.slice(start)
 }
 
 export const loggerMiddleware = factory.createMiddleware(async (c, next) => {
   const start = Date.now()
   console.log('[REQUEST]', `${c.req.method} ${getPath(c.req.raw)}`)
 
+  // eslint-disable-next-line functional/no-return-void
   c.set('logger', (type, message) => (data) => {
     switch (type) {
       case 'info':

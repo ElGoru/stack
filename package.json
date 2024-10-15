@@ -2,6 +2,7 @@
   "name": "my-app",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
+    "lint": "bun eslint --flag unstable_ts_config",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:pull": "drizzle-kit pull",
@@ -22,6 +23,7 @@
     "@types/eslint__js": "8.42.3",
     "drizzle-kit": "^0.24.2",
     "eslint": "9.11.1",
+    "eslint-plugin-functional": "7.0.2",
     "prettier": "3.3.3",
     "typescript": "5.6.2",
     "typescript-eslint": "8.8.0"
