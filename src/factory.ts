@@ -11,7 +11,7 @@ import { Either } from 'purify-ts'
 // eslint-disable-next-line functional/no-return-void
 type Logger = (type: 'log' | 'info' | 'success' | 'error', title: string) => (data: unknown) => void
 
-type DBClient = PgDatabase<PostgresJsQueryResultHKT, typeof schema, ExtractTablesWithRelations<typeof schema>>
+type DatabaseClient = PgDatabase<PostgresJsQueryResultHKT, typeof schema, ExtractTablesWithRelations<typeof schema>>
 
 type AppResponse = <T>(
   input: Either<DependencyError | ValidationError, T>
@@ -19,12 +19,12 @@ type AppResponse = <T>(
   | TypedResponse<T, SuccessStatusCode, 'json'>
   | TypedResponse<{ [key: string]: unknown }, ClientErrorStatusCode | ServerErrorStatusCode, 'json'>
 
-type CustomEnv = {
+type CustomEnvironment = {
   Variables: {
     logger: Logger
-    dbClient: DBClient
+    databaseClient: DatabaseClient
     appResponse: AppResponse
   }
 }
 
-export const factory = createFactory<CustomEnv>()
+export const factory = createFactory<CustomEnvironment>()

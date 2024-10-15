@@ -1,8 +1,8 @@
 import { Mock } from 'bun:test'
 
 type BunMockedDependencies<Dependencies> = {
-  [Key in keyof Dependencies]: Dependencies[Key] extends (...args: infer Arguments) => infer Return
-    ? Mock<(...args: Arguments) => Return>
+  [Key in keyof Dependencies]: Dependencies[Key] extends (...parameters: infer DependencyParameters) => infer Return
+    ? Mock<(...parameters: DependencyParameters) => Return>
     : never
 }
 

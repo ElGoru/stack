@@ -9,12 +9,15 @@ export const appResponseMiddleware = factory.createMiddleware(async (c, next) =>
       .ifLeft(c.var.logger('error', 'appError'))
       .mapLeft((error) => {
         switch (error.type) {
-          case 'DependencyError':
+          case 'DependencyError': {
             return c.json({ message: error.message }, 500)
-          case 'ValidationError':
+          }
+          case 'ValidationError': {
             return c.json({ message: error.message }, 400)
-          default:
+          }
+          default: {
             return c.json({ message: 'Unknown error' }, 500)
+          }
         }
       })
       .extract()

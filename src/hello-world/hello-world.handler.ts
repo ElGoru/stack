@@ -4,7 +4,7 @@ import { queryValidator } from '@validator'
 import { EitherAsync } from 'purify-ts'
 import { z } from 'zod'
 
-import { helloWorld } from './helloWorld'
+import { helloWorld } from './hello-world'
 
 const schema = z.object({
   name: z.string(),
@@ -16,7 +16,8 @@ export const helloWorldHandler = factory.createHandlers(queryValidator(schema), 
 
   const dependencies = {
     saveName: (name: string) =>
-      EitherAsync(() => c.var.dbClient.insert(helloWorldTable).values({ name }).execute())
+      EitherAsync(() => c.var.databaseClient.insert(helloWorldTable).values({ name }).execute())
+        // eslint-disable-next-line unicorn/no-useless-undefined
         .map(() => undefined)
         .mapLeft((error) => ({ type: 'DependencyError' as const, message: `${error}`, dependency: 'db', input }))
   }

@@ -1,21 +1,22 @@
 import { factory } from '@factory'
 import { hc } from 'hono/client'
 
-import { helloWorldHandler } from './helloWorld/helloWorld.handler'
-import { appResponseMiddleware } from './middleware/appResponse'
-import { dbClientMiddleware } from './middleware/dbClient'
+import { helloWorldHandler } from './hello-world/hello-world.handler'
+import { appResponseMiddleware } from './middleware/app-response'
+import { databaseClientMiddleware } from './middleware/database-client'
 import { loggerMiddleware } from './middleware/logger'
 
 declare module 'bun' {
+  // eslint-disable-next-line unicorn/prevent-abbreviations
   interface Env {
-    DB_CONNECTION_STRING: string
+    DATABASE_CONNECTION_STRING: string
   }
 }
 
 const app = factory
   .createApp()
   .use(loggerMiddleware)
-  .use(dbClientMiddleware)
+  .use(databaseClientMiddleware)
   .use(appResponseMiddleware)
   .get('/', ...helloWorldHandler)
 
@@ -24,12 +25,15 @@ export default app
 export type AppType = typeof app
 
 const client = hc<AppType>('http://localhost:3000/')
-client.index.$get({ query: { name: 'error', age: '30' } }).then(async (res) => {
-  if (res.ok) {
-    // eslint-disable-next-line no-console, functional/no-return-void
-    res.json().then((x) => console.log(x))
+// eslint-disable-next-line unicorn/prefer-top-level-await
+client.index.$get({ query: { name: 'error', age: '30' } }).then(async (response) => {
+  if (response.ok) {
+    const json = await response.json()
+    // eslint-disable-next-line no-console
+    console.log(json)
   } else {
-    // eslint-disable-next-line no-console, functional/no-return-void
-    res.json().then((x) => console.error(x))
+    const json = await response.json()
+    // eslint-disable-next-line no-console
+    console.error(json)
   }
 })

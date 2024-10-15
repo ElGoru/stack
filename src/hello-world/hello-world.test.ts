@@ -3,9 +3,10 @@ import { MockDependencies, MockInput } from '@testHelpers'
 import { describe, expect, mock, test } from 'bun:test'
 import { EitherAsync, Left, Right } from 'purify-ts'
 
-import { helloWorld } from './helloWorld'
+import { helloWorld } from './hello-world'
 
 const mockDependencies: MockDependencies<typeof helloWorld> = (overrides) => ({
+  // eslint-disable-next-line unicorn/no-useless-undefined
   saveName: mock((_: string) => EitherAsync.liftEither(Right(undefined))),
   ...overrides
 })
@@ -33,9 +34,9 @@ describe('helloWorld', () => {
     })
     const input = mockInput()
 
-    const res = await helloWorld(dependencies)(input)
+    const response = await helloWorld(dependencies)(input)
 
     expect(dependencies.saveName).toHaveBeenCalledWith('Alice')
-    expect(res.extract()).toEqual(error)
+    expect(response.extract()).toEqual(error)
   })
 })
