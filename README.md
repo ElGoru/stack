@@ -28,7 +28,7 @@ Follow these steps to set up the project locally:
    Example `.env` file:
 
    ```env
-   DB_CONNECTION_STRING='postgresql://postgres:my_password@localhost:5432/postgres'
+   DATABASE_CONNECTION_STRING='postgresql://postgres:my_password@localhost:5432/postgres'
    ```
 
 4. **Migrate Database Schema:**
@@ -82,19 +82,19 @@ Effective software development relies on a well-organized codebase that is scala
 
 - **Purpose**: Encapsulates the core business logic.
 - **Functionality**: Takes dependencies and input, processes the input using the dependencies, and returns a result.
-- **Example**: In `helloWorld.ts`, the `helloWorld` function logs a message and returns a greeting message.
+- **Example**: In `hello-world.ts`, the `helloWorld` function logs a message and returns a greeting message.
 
 ### Handler
 
 - **Purpose**: Acts as a bridge between the HTTP request and the core business logic.
 - **Functionality**: Validates the incoming request, prepares dependencies, invokes the core logic, and handles the response.
-- **Example**: In `helloWorld.handler.ts`, the `helloWorldHandler` validates the query parameters, sets up the logger dependency, and calls the `helloWorld` function.
+- **Example**: In `hello-world.handler.ts`, the `helloWorldHandler` validates the query parameters, sets up the logger dependency, and calls the `helloWorld` function.
 
 ### appResponse
 
 - **Purpose**: Standardizes the response format and error handling across the application.
 - **Functionality**: Provides middleware to handle the response and errors in a consistent manner.
-- **Example**: In `appResponse.ts`, the `appResponseMiddleware` sets up a method to handle successful responses and different types of errors (e.g., `DependencyError`, `ValidationError`).
+- **Example**: In `app-response.ts`, the `appResponseMiddleware` sets up a method to handle successful responses and different types of errors (e.g., `DependencyError`, `ValidationError`).
 
 ## Technologies
 
