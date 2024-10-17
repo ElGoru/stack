@@ -6,12 +6,12 @@ import { EitherAsync, Left, Right } from 'purify-ts'
 import { helloWorld } from './hello-world'
 
 const mockDependencies: MockDependencies<typeof helloWorld> = (overrides) => ({
-  // eslint-disable-next-line unicorn/no-useless-undefined
-  saveName: mock((_: string) => EitherAsync.liftEither(Right(undefined))),
+  saveName: mock((_: string) => EitherAsync.liftEither(Right({})).void()),
   ...overrides
 })
 
 const mockInput: MockInput<typeof helloWorld> = (overrides) => ({
+  id: 'b16ed4bb-2c3f-478f-8b1d-1139467daf4d',
   name: 'Alice',
   age: 42,
   ...overrides
@@ -24,7 +24,7 @@ describe('helloWorld', () => {
 
     await helloWorld(dependencies)(input)
 
-    expect(dependencies.saveName).toHaveBeenCalledWith('Alice')
+    expect(dependencies.saveName).toHaveBeenCalledWith('b16ed4bb-2c3f-478f-8b1d-1139467daf4d', 'Alice')
   })
 
   test('return dependency error', async () => {
@@ -36,7 +36,7 @@ describe('helloWorld', () => {
 
     const response = await helloWorld(dependencies)(input)
 
-    expect(dependencies.saveName).toHaveBeenCalledWith('Alice')
+    expect(dependencies.saveName).toHaveBeenCalledWith('b16ed4bb-2c3f-478f-8b1d-1139467daf4d', 'Alice')
     expect(response.extract()).toEqual(error)
   })
 })
