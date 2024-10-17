@@ -1,5 +1,6 @@
 import * as schema from '@dbSchema'
 import { DependencyError, ValidationError } from '@types'
+import { betterAuth } from 'better-auth'
 import { ExtractTablesWithRelations } from 'drizzle-orm'
 import { PgDatabase } from 'drizzle-orm/pg-core'
 import { PostgresJsQueryResultHKT } from 'drizzle-orm/postgres-js'
@@ -19,11 +20,14 @@ type AppResponse = <T>(
   | TypedResponse<T, SuccessStatusCode, 'json'>
   | TypedResponse<{ [key: string]: unknown }, ClientErrorStatusCode | ServerErrorStatusCode, 'json'>
 
+type Auth = ReturnType<typeof betterAuth>
+
 type CustomEnvironment = {
   Variables: {
     logger: Logger
     databaseClient: DatabaseClient
     appResponse: AppResponse
+    auth: Auth
   }
 }
 
