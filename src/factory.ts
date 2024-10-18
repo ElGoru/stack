@@ -27,7 +27,8 @@ type CustomEnvironment = {
     logger: Logger
     databaseClient: DatabaseClient
     appResponse: AppResponse
-    auth: Auth
+    authApi: Auth['api']
+    authHandler: Auth['handler']
   }
 }
 

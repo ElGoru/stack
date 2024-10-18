@@ -7,7 +7,7 @@
     "db:push": "drizzle-kit push",
     "db:pull": "drizzle-kit pull",
     "db:generate": "drizzle-kit generate",
-    "auth:generate": "bunx @better-auth/cli generate --output drizzle/schema/auth.ts --config src/auth-config.ts"
+    "auth:generate": "bunx @better-auth/cli generate --output drizzle/schema/auth.ts --config drizzle/utils/auth.ts"
   },
   "dependencies": {
     "@hono/zod-validator": "0.3.0",

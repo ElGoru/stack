@@ -14,6 +14,9 @@ declare module 'bun' {
   // eslint-disable-next-line unicorn/prevent-abbreviations
   interface Env {
     DATABASE_CONNECTION_STRING: string
+    BETTER_AUTH_SECRET: string
+    BETTER_AUTH_URL: string
+    BETTER_AUTH_TRUSTED_ORIGINS: string
   }
 }
 
