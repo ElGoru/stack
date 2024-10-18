@@ -12,6 +12,7 @@
       "@factory": ["./src/factory"],
       "@validator": ["./src/middleware/validator"],
       "@types": ["./src/types"],
+      "@database": ["./src/database"],
       "@dbSchema": ["./drizzle/schema"],
       "@testHelpers": ["./src/helpers/test"]
     }

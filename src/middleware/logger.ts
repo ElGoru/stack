@@ -1,17 +1,6 @@
 /* eslint-disable no-console */
 import { factory } from '@factory'
 
-const humanize = (times: string[]) => {
-  const [delimiter, separator] = [',', '.']
-  const orderTimes = times.map((v) => v.replaceAll(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + delimiter))
-  return orderTimes.join(separator)
-}
-
-const time = (start: number) => {
-  const delta = Date.now() - start
-  return humanize([delta < 1000 ? delta + 'ms' : Math.round(delta / 1000) + 's'])
-}
-
 export const loggerMiddleware = factory.createMiddleware(async (c, next) => {
   const start = Date.now()
   console.log('[REQUEST]', `${c.req.method} ${URL.parse(c.req.raw.url)?.pathname}`)
@@ -37,6 +26,7 @@ export const loggerMiddleware = factory.createMiddleware(async (c, next) => {
     }
   })
   await next()
-
-  console.log('[RESPONSE]', `${c.res.status} ${time(start)}`)
+  const delta = Date.now() - start
+  const time = delta < 1000 ? `${delta}ms` : `${Math.round(delta / 1000)}s`
+  console.log('[RESPONSE]', `${c.res.status} ${time}`)
 })
