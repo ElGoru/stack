@@ -7,8 +7,9 @@ export const queryValidator = <T>(schema: Schema<T>) =>
   factory.createMiddleware(
     zValidator('query', schema, (result, c) => {
       if (!result.success) {
-        const error = Left({ type: 'ValidationError' as const, message: 'Failed to validate', input: result.data })
-        return c.var.appResponse(error)
+        return c.var.appResponse(
+          Left({ type: 'ValidationError' as const, message: 'Failed to validate', input: result.data })
+        )
       }
       c.var.logger('info', 'valid query')(result.data)
     })

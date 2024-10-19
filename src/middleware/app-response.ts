@@ -15,6 +15,9 @@ export const appResponseMiddleware = factory.createMiddleware(async (c, next) =>
           case 'ValidationError': {
             return c.json({ message: error.message }, 400)
           }
+          case 'InternalError': {
+            return c.json({ message: error.message }, 500)
+          }
           default: {
             return c.json({ message: 'Unknown error' }, 500)
           }

@@ -6,12 +6,14 @@ import { hc } from 'hono/client'
 import { authHandler } from './auth/auth.handler'
 import { helloWorldHandler } from './hello-world/hello-world.handler'
 import { appResponseMiddleware } from './middleware/app-response'
+import { environmentValidatorMiddleware } from './middleware/environment-validator'
 import { loggerMiddleware } from './middleware/logger'
 
 const app = factory
   .createApp()
   .use(loggerMiddleware)
   .use(appResponseMiddleware)
+  .use(environmentValidatorMiddleware)
   .get('/api/auth/*', ...authHandler)
   .post('/api/auth/*', ...authHandler)
   .get('/hello-world', ...helloWorldHandler)

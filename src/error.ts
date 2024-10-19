@@ -10,3 +10,9 @@ export type ValidationError = {
   message: string
   input: unknown
 }
+
+export type InternalError = {
+  type: 'InternalError'
+  message: string
+  error: unknown
+}
