@@ -1,4 +1,4 @@
-import { DependencyError, InternalError, ValidationError } from '@error'
+import { DependencyError, InternalError, ValidationError } from '@errors'
 import { TypedResponse } from 'hono'
 import { createFactory } from 'hono/factory'
 import { ClientErrorStatusCode, ServerErrorStatusCode, SuccessStatusCode } from 'hono/utils/http-status'

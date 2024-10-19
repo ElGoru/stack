@@ -1,4 +1,4 @@
-import { DependencyError } from '@error'
+import { DependencyError } from '@errors'
 import { EitherAsync } from 'purify-ts'
 
 type Dependencies = {
