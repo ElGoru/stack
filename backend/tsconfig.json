@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "forceConsistentCasingInFileNames": true,
-    "maxNodeModuleJsDepth": 10,
+    "composite": true,
     "paths": {
       "@factory": ["./src/factory"],
       "@validator": ["./src/middleware/validator"],

@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict, {
   extends: [
-    functional.configs.externalTypescriptRecommended,
+    functional.configs.externalTypeScriptRecommended,
     functional.configs.stylistic,
     functional.configs.lite,
     unicorn.configs['flat/recommended']
