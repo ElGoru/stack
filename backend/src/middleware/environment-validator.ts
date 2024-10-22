@@ -1,5 +1,6 @@
-import { factory } from '@factory'
 import { Left } from 'purify-ts'
+
+import { factory } from '#factory'
 
 import { environmentSchema } from '../types/environment'
 

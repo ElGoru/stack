@@ -1,5 +1,6 @@
-import { DependencyError } from '@errors'
 import { EitherAsync } from 'purify-ts'
+
+import { DependencyError } from '#errors'
 
 type Dependencies = {
   saveName: (id: string, name: string) => EitherAsync<DependencyError, void>

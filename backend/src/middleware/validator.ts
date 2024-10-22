@@ -1,7 +1,8 @@
-import { factory } from '@factory'
 import { zValidator } from '@hono/zod-validator'
 import { Left } from 'purify-ts'
 import { Schema } from 'zod'
+
+import { factory } from '#factory'
 
 export const queryValidator = <T>(schema: Schema<T>) =>
   factory.createMiddleware(

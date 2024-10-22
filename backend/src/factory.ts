@@ -1,8 +1,9 @@
-import { DependencyError, InternalError, ValidationError } from '@errors'
 import { TypedResponse } from 'hono'
 import { createFactory } from 'hono/factory'
 import { ClientErrorStatusCode, ServerErrorStatusCode, SuccessStatusCode } from 'hono/utils/http-status'
 import { Either } from 'purify-ts'
+
+import { DependencyError, InternalError, ValidationError } from '#errors'
 
 // eslint-disable-next-line functional/no-return-void
 type Logger = (type: 'log' | 'info' | 'success' | 'error', title: string) => (data: unknown) => void

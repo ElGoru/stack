@@ -1,20 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "esModuleInterop": true,
-    "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-    "forceConsistentCasingInFileNames": true,
-    "composite": true,
-    "paths": {
-      "@factory": ["./src/factory"],
-      "@validator": ["./src/middleware/validator"],
-      "@errors": ["./src/types/errors"],
-      "@database": ["./src/database"],
-      "@dbSchema": ["./drizzle/schema"],
-      "@testHelpers": ["./src/helpers/test"]
-    }
-  }
+  "extends": "../tsconfig.json",
+  "references": [{ "path": "../" }]
 }

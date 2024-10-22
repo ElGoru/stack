@@ -1,25 +1,28 @@
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { v4 } from "uuid";
-import "./App.css";
-import reactLogo from "./assets/react.svg";
-import { useApiClient } from "./useApiClient";
-import viteLogo from "/vite.svg";
+import './app.css'
+
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
+import { v4 } from 'uuid'
+
+import viteLogo from '/vite.svg'
+
+import reactLogo from './assets/react.svg'
+import { useApiClient } from './useApiClient'
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
-  const client = useApiClient();
+  const client = useApiClient()
   const mutation = useMutation({
-    mutationFn: (data: { id: string; name: string; age: string }) =>
-      client["hello-world"].$get({ query: data }).then(async (response) => {
+    mutationFn: (data: Readonly<{ id: string; name: string; age: string }>) =>
+      client['hello-world'].$get({ query: data }).then(async (response) => {
         if (response.ok) {
-          return await response.json();
+          return await response.json()
         } else {
-          throw new Error("Failed to fetch");
+          throw new Error('Failed to fetch')
         }
-      }),
-  });
+      })
+  })
 
   return (
     <>
@@ -33,23 +36,17 @@ const App = () => {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <button
-          onClick={() => mutation.mutate({ id: v4(), name: "name", age: "27" })}
-        >
-          Hono RPC: {mutation.isSuccess ? mutation.data.message : "Click me"}
+        <button onClick={() => setCount((c) => c + 1)}>count is {count}</button>
+        <button onClick={() => mutation.mutate({ id: v4(), name: 'name', age: '27' })}>
+          Hono RPC: {mutation.isSuccess ? mutation.data.message : 'Click me'}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
