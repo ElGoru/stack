@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["bunx", "Hono", "jiti", "tanstack", "tseslint"],
+  "cSpell.words": ["bunx", "Hono", "jiti", "nocheck", "tanstack", "tseslint"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.sortImports": "explicit",
