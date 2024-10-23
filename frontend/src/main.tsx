@@ -1,4 +1,4 @@
-import './index.css'
+import './main.css'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
@@ -7,8 +7,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { AppType } from '../../backend/src/index'
+import { ApiClientProvider } from './components/api-client-provider'
+import { ThemeProvider } from './components/theme-provider'
 import { routeTree } from './routeTree.gen'
-import { ApiClientContext } from './useApiClient'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -18,11 +19,13 @@ const apiClient = hc<AppType>(import.meta.env.VITE_APP_API_URL)
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.querySelector('#root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ApiClientContext.Provider value={apiClient}>
-        <RouterProvider router={router} />
-      </ApiClientContext.Provider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ApiClientProvider client={apiClient}>
+          <RouterProvider router={router} />
+        </ApiClientProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>
 )
 

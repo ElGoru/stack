@@ -1,5 +1,3 @@
-import './index.css'
-
 import { useMutation } from '@tanstack/react-query'
 import { createLazyFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
@@ -8,7 +6,9 @@ import { v4 } from 'uuid'
 import viteLogo from '/vite.svg'
 
 import reactLogo from '../assets/react.svg'
-import { useApiClient } from '../useApiClient'
+import { useApiClient } from '../components/api-client-provider'
+import { Button } from '../components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader } from '../components/ui/card'
 
 const Index = () => {
   const [count, setCount] = useState(0)
@@ -26,28 +26,34 @@ const Index = () => {
   })
 
   return (
-    <>
-      <div>
+    // center div
+    <div className="flex flex-col items-center">
+      <div className="flex">
         <a href="https://vitejs.dev" target="_blank" rel="noopener">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+          <img src={viteLogo} className="p-5 hover:drop-shadow-[0_0_2em_#646cff]" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank" rel="noopener">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img src={reactLogo} className="p-5 hover:drop-shadow-[0_0_2em_#646cff]" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((c) => c + 1)}>count is {count}</button>
-        <button onClick={() => mutation.mutate({ id: v4(), name: 'name', age: '27' })}>
-          Hono RPC: {mutation.isSuccess ? mutation.data.message : 'Click me'}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
+      <Card>
+        <CardHeader>
+          <h1>Vite + React</h1>
+        </CardHeader>
+        <CardContent className="flex justify-between">
+          <Button onClick={() => setCount((c) => c + 1)}>count is {count}</Button>
+          <Button onClick={() => mutation.mutate({ id: v4(), name: 'name', age: '27' })}>
+            Hono RPC: {mutation.isSuccess ? mutation.data.message : 'Click me'}
+          </Button>
+        </CardContent>
+        <CardFooter>
+          <p>
+            Edit <code>src/routes/index.lazy.tsx</code> to test HMR
+          </p>
+        </CardFooter>
+      </Card>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-      <div />
-    </>
+    </div>
   )
 }
 
