@@ -1,11 +1,11 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../settings/tsconfig.json",
   "compilerOptions": {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "references": [{ "path": "../" }, { "path": "../backend" }],
+  "references": [{ "path": "../backend" }, { "path": "../settings" }],
   "exclude": ["postcss.config.js"]
 }

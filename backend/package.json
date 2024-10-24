@@ -22,14 +22,6 @@
     "purify-ts": "2.1.0",
     "zod": "3.23.8"
   },
-  "imports": {
-    "#factory": "./src/factory.ts",
-    "#validator": "./src/middleware/validator.ts",
-    "#errors": "./src/types/errors.ts",
-    "#database": "./src/database.ts",
-    "#dbSchema": "./drizzle/schema/index.ts",
-    "#testHelpers": "./src/helpers/test.ts"
-  },
   "devDependencies": {
     "@eslint/js": "9.11.1",
     "@types/bun": "latest",

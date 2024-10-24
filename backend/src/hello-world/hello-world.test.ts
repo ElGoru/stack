@@ -1,8 +1,7 @@
 /* eslint-disable functional/no-return-void */
+import { MockDependencies, MockInput } from '@testHelpers'
 import { describe, expect, mock, test } from 'bun:test'
 import { EitherAsync, Left, Right } from 'purify-ts'
-
-import { MockDependencies, MockInput } from '#testHelpers'
 
 import { helloWorld } from './hello-world'
 
@@ -29,7 +28,12 @@ describe('helloWorld', () => {
   })
 
   test('return dependency error', async () => {
-    const error = { type: 'DependencyError' as const, message: 'logger error', dependency: 'logger', input: 'Alice' }
+    const error = {
+      type: 'DependencyError' as const,
+      message: 'logger error',
+      dependency: 'logger',
+      input: 'Alice'
+    }
     const dependencies = mockDependencies({
       saveName: mock((_) => EitherAsync.liftEither(Left(error)))
     })

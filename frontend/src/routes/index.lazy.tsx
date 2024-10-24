@@ -3,12 +3,11 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { v4 } from 'uuid'
 
-import viteLogo from '/vite.svg'
-
-import reactLogo from '../assets/react.svg'
-import { useApiClient } from '../components/api-client-provider'
-import { Button } from '../components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '../components/ui/card'
+import reactLogo from '@/assets/react.svg'
+import viteLogo from '@/assets/vite.svg'
+import { useApiClient } from '@/components/api-client-provider'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
 const Index = () => {
   const [count, setCount] = useState(0)

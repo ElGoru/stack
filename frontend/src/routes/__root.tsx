@@ -1,8 +1,8 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
-import { ModeToggle } from '../components/mode-toggle'
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '../components/ui/menubar'
+import { ModeToggle } from '@/components/mode-toggle'
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@/components/ui/menubar'
 
 export const Route = createRootRoute({
   component: () => (

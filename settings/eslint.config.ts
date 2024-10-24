@@ -1,15 +1,18 @@
 import eslint from '@eslint/js'
+import eslintConfigPrettier from "eslint-config-prettier"
 import functional from 'eslint-plugin-functional'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import unicorn from 'eslint-plugin-unicorn'
 import tseslint from 'typescript-eslint'
+
 
 export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict, {
   extends: [
     functional.configs.externalTypeScriptRecommended,
     functional.configs.stylistic,
     functional.configs.lite,
-    unicorn.configs['flat/recommended']
+    unicorn.configs['flat/recommended'],
+    eslintConfigPrettier
   ],
   languageOptions: {
     parser: tseslint.parser,

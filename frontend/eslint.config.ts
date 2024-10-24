@@ -2,7 +2,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
-import baseConfig from '../eslint.config'
+import baseConfig from '../settings/eslint.config'
 
 export default tseslint.config({
   extends: [...baseConfig],

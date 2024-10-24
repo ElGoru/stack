@@ -1,6 +1,5 @@
+import { factory } from '@factory'
 import { cors } from 'hono/cors'
-
-import { factory } from '#factory'
 
 export const corsMiddleware = factory.createMiddleware(async (c, next) => {
   const corsMiddlewareHandler = cors({

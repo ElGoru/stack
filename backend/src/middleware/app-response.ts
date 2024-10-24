@@ -1,4 +1,4 @@
-import { factory } from '#factory'
+import { factory } from '@factory'
 
 export const appResponseMiddleware = factory.createMiddleware(async (c, next) => {
   c.set('appResponse', (input) =>

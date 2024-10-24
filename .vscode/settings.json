@@ -8,5 +8,6 @@
   "eslint.workingDirectories": ["./frontend", "./backend"],
   "eslint.options": {
     "flags": ["unstable_ts_config"]
-  }
+  },
+  "prettier.configPath": "./settings/.prettierrc"
 }

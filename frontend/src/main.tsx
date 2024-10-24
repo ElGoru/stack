@@ -6,10 +6,11 @@ import { hc } from 'hono/client'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
+import { ApiClientProvider } from '@/components/api-client-provider'
+import { ThemeProvider } from '@/components/theme-provider'
+import { routeTree } from '@/routeTree.gen'
+
 import { AppType } from '../../backend/src/index'
-import { ApiClientProvider } from './components/api-client-provider'
-import { ThemeProvider } from './components/theme-provider'
-import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
 const router = createRouter({ routeTree })

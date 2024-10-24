@@ -1,5 +1,5 @@
-import { database } from '#database'
-import { factory } from '#factory'
+import { database } from '@database'
+import { factory } from '@factory'
 
 import { auth } from './auth'
 

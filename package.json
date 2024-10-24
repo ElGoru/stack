@@ -3,22 +3,12 @@
   "private": true,
   "workspaces": [
     "backend",
-    "frontend"
+    "frontend",
+    "settings"
   ],
   "scripts": {
     "dev": "bun --filter '*' dev",
     "lint": "bun --filter '*' lint",
     "test": "bun --filter '*' test"
-  },
-  "devDependencies": {
-    "@eslint/js": "9.11.1",
-    "@types/eslint__js": "8.42.3",
-    "eslint": "9.13.0",
-    "eslint-plugin-functional": "7.0.2",
-    "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unicorn": "56.0.0",
-    "jiti": "2.3.3",
-    "prettier": "3.3.3",
-    "typescript-eslint": "8.10.0"
   }
 }

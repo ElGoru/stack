@@ -1,10 +1,9 @@
+import { database } from '@database'
+import { helloWorld as helloWorldTable } from '@dbSchema'
+import { factory } from '@factory'
+import { queryValidator } from '@validator'
 import { EitherAsync } from 'purify-ts'
 import { z } from 'zod'
-
-import { database } from '#database'
-import { helloWorld as helloWorldTable } from '#dbSchema'
-import { factory } from '#factory'
-import { queryValidator } from '#validator'
 
 import { helloWorld } from './hello-world'
 
