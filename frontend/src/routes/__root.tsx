@@ -2,10 +2,13 @@ import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 import { ModeToggle } from '@/components/mode-toggle'
+import { Button } from '@/components/ui/button'
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@/components/ui/menubar'
+import { client } from '@/lib/auth-client'
 
-export const Route = createRootRoute({
-  component: () => (
+const Root = () => {
+  const { data } = client.useSession()
+  return (
     <div className="">
       <div className="p-2 flex gap-2">
         <Menubar>
@@ -16,8 +19,13 @@ export const Route = createRootRoute({
                 <Link to="/">Home</Link>
               </MenubarItem>
               <MenubarItem>
-                <Link to="/about">About</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </MenubarItem>
+              {data?.session ? (
+                <MenubarItem>
+                  <Button onClick={() => client.signOut()}>LogOut</Button>
+                </MenubarItem>
+              ) : undefined}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
@@ -28,4 +36,6 @@ export const Route = createRootRoute({
       <TanStackRouterDevtools />
     </div>
   )
-})
+}
+
+export const Route = createRootRoute({ component: Root })
