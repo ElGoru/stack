@@ -1,5 +1,5 @@
 {
-  "extends": "../settings/tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "paths": {
       "@factory": ["./src/factory.ts"],
@@ -10,5 +10,4 @@
       "@dbSchema": ["./drizzle/schema/index.ts"]
     }
   },
-  "references": [{ "path": "../settings" }]
 }

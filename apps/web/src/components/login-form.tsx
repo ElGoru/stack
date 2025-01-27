@@ -34,9 +34,9 @@ export function LoginForm({ onSubmit }: Properties) {
       <CardContent>
         <div className="grid gap-4">
           <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
+            onSubmit={(event) => {
+              event.preventDefault()
+              event.stopPropagation()
               form.handleSubmit()
             }}
           >

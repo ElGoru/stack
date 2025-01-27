@@ -1,11 +1,10 @@
+import baseConfig from '@stack/eslint-config'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
-import baseConfig from '../settings/eslint.config'
-
 export default tseslint.config({
-  extends: [...baseConfig],
+  extends:[...baseConfig],
   plugins: {
     'react-hooks': reactHooks,
     'react-refresh': reactRefresh
@@ -16,5 +15,5 @@ export default tseslint.config({
     'functional/no-return-void': 'off',
     'unicorn/filename-case': 'off'
   },
-  ignores: ['postcss.config.js', 'src/routeTree.gen.ts']
+  ignores: ['src/routeTree.gen.ts']
 })

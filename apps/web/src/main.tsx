@@ -1,5 +1,6 @@
 import './main.css'
 
+import { AppType } from '@stack/api'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { hc } from 'hono/client'
@@ -9,8 +10,6 @@ import { createRoot } from 'react-dom/client'
 import { ApiClientProvider } from '@/components/api-client-provider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { routeTree } from '@/routeTree.gen'
-
-import { AppType } from '../../backend/src/index'
 
 // Create a new router instance
 const router = createRouter({ routeTree })

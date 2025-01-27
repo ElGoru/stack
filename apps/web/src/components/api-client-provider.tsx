@@ -1,7 +1,6 @@
+import type { AppType } from '@stack/api'
 import { hc } from 'hono/client'
 import { createContext, useContext } from 'react'
-
-import type { AppType } from '../../../backend/src/index'
 
 type Client = ReturnType<typeof hc<AppType>>
 

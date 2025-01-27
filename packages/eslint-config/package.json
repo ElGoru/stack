@@ -1,6 +1,10 @@
 {
-  "name": "settings",
-  "private": true,
+  "name": "@stack/eslint-config",
+  "type": "module",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./eslint.config.ts"
+  },
   "devDependencies": {
     "@eslint/js": "9.11.1",
     "@types/eslint-config-prettier": "6.11.3",
