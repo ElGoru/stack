@@ -11,7 +11,6 @@ import { ApiClientProvider } from '@/components/api-client-provider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { routeTree } from '@/routeTree.gen'
 
-// Create a new router instance
 const router = createRouter({ routeTree })
 const queryClient = new QueryClient()
 const apiClient = hc<AppType>(import.meta.env.VITE_APP_API_URL)

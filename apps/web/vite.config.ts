@@ -7,10 +7,13 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react(),tailwindcss()],
+  plugins: [TanStackRouterVite(), react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src')
     }
+  },
+  server: {
+    strictPort: true
   }
 })

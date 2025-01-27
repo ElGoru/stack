@@ -10,7 +10,7 @@ const Auth = () => {
   if (isPending) {
     return <div>Loading...</div>
   }
-  if (error || new Date(session.session.expiresAt).getTime() < Date.now()) {
+  if (error || session === null || new Date(session.session.expiresAt).getTime() < Date.now()) {
     return (
       <div className="p-5">
         <LoginForm onSubmit={client.signIn.email} />
