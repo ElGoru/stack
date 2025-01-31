@@ -4,8 +4,7 @@ export const environmentSchema = z.object({
   DATABASE_CONNECTION_STRING: z.string(),
   BETTER_AUTH_SECRET: z.string(),
   BETTER_AUTH_URL: z.string(),
-  TRUSTED_ORIGINS: z.string(),
-  ENVIRONMENT: z.string()
+  TRUSTED_ORIGINS: z.string()
 })
 
 declare module 'bun' {

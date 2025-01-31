@@ -1,5 +1,17 @@
 {
-  "cSpell.words": ["bunx", "clsx", "Deno", "Hono", "jiti", "lucide", "nocheck", "tailwindcss", "tanstack", "tseslint"],
+  "cSpell.words": [
+    "bunx",
+    "clsx",
+    "Deno",
+    "Hono",
+    "jiti",
+    "lucide",
+    "nocheck",
+    "tailwindcss",
+    "tanstack",
+    "tseslint",
+    "VITE"
+  ],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.sortImports": "explicit",

@@ -27,6 +27,7 @@
     "@types/bun": "latest",
     "@types/eslint__js": "8.42.3",
     "@stack/eslint-config": "workspace:^",
+    "@stack/infra": "workspace:^",
     "drizzle-kit": "^0.24.2",
     "eslint": "9.13.0",
     "eslint-plugin-functional": "7.0.2",
