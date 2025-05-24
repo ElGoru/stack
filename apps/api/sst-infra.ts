@@ -20,9 +20,10 @@ export const createApi = ({ domain, trustedOrigins }: Readonly<{ domain: string;
   })
   const { connectionString } = initDrizzle(directory, rds)
 
-  const secret = new sst.Secret('MySecret')
+  const betterAuthSecret = new sst.Secret('BetterAuthSecret', 'my_secret')
   const cluster = new sst.aws.Cluster('MyCluster', { vpc })
-  const service = cluster.addService('Api', {
+  const service = new sst.aws.Service('Api', {
+    cluster,
     public: { domain },
     loadBalancer: {
       ports: [{ listen: '80/http', forward: '3000/http' }]
@@ -35,7 +36,7 @@ export const createApi = ({ domain, trustedOrigins }: Readonly<{ domain: string;
     },
     environment: {
       DATABASE_CONNECTION_STRING: connectionString,
-      BETTER_AUTH_SECRET: secret.value,
+      BETTER_AUTH_SECRET: betterAuthSecret.value,
       BETTER_AUTH_URL: domain,
       TRUSTED_ORIGINS: trustedOrigins.join(',')
     }

@@ -11,7 +11,7 @@
     "test": "bun --filter '*' test"
   },
   "dependencies": {
-    "sst": "3.6.21"
+    "sst": "3.16.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.147"

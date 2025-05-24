@@ -21,5 +21,6 @@
   "eslint.options": {
     "flags": ["unstable_ts_config", "unstable_config_lookup_from_file"]
   },
-  "prettier.configPath": ".prettierrc"
+  "prettier.configPath": ".prettierrc",
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

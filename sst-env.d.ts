@@ -5,31 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "Api": {
-      "service": string
-      "type": "sst.aws.Service"
-      "url": string
-    }
-    "MyPostgres": {
-      "database": string
-      "host": string
-      "password": string
-      "port": number
-      "type": "sst.aws.Postgres"
-      "username": string
-    }
-    "MySecret": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "MyVpc": {
-      "bastion": string
-      "type": "sst.aws.Vpc"
-    }
-    "Web": {
-      "type": "sst.aws.StaticSite"
-      "url": string
-    }
   }
 }
 /// <reference path="sst-env.d.ts" />
