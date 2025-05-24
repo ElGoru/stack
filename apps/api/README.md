@@ -74,14 +74,14 @@ apps/api/
 ├── src/
 │   ├── modules/        # Feature modules (auth, hello-world)
 │   ├── middleware/     # Custom middleware
-│   ├── types/         # Type definitions
-│   ├── helpers/       # Test helpers
-│   └── index.ts       # App entry point
+│   ├── types/          # Type definitions
+│   ├── lib/            # Utilities
+│   └── index.ts        # App entry point
 ├── drizzle/
 │   ├── migrations/    # Database migrations
-│   ├── schema/       # Database schema
-│   └── utils/        # Schema utilities
-└── sst-infra.ts      # Infrastructure config
+│   ├── schema/        # Database schema
+│   └── utils/         # Schema utilities
+└── sst-infra.ts       # Infrastructure config
 ```
 
 ## 🛠️ Development

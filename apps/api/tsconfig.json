@@ -6,8 +6,8 @@
       "@validator": ["./src/middleware/validator.ts"],
       "@errors": ["./src/types/errors.ts"],
       "@database": ["./src/database.ts"],
-      "@testHelpers": ["./src/helpers/test.ts"],
+      "@testHelpers": ["./src/lib/test.ts"],
       "@dbSchema": ["./drizzle/schema/index.ts"]
     }
-  },
+  }
 }
