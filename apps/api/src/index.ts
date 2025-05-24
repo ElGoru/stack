@@ -1,11 +1,11 @@
 import { factory } from '@factory'
 
-import { authHandler } from './auth/auth.handler'
-import { helloWorldHandler } from './hello-world/hello-world.handler'
 import { appResponseMiddleware } from './middleware/app-response'
 import { corsMiddleware } from './middleware/cors'
 import { environmentValidatorMiddleware } from './middleware/environment-validator'
 import { loggerMiddleware } from './middleware/logger'
+import { authHandler } from './modules/auth/auth.handler'
+import { helloWorldHandler } from './modules/hello-world/hello-world.handler'
 
 const app = factory
   .createApp()

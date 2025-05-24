@@ -1,133 +1,238 @@
-# Backend
+# @stack/api
 
-## Installation
+<div align="center">
 
-Follow these steps to set up the project locally:
+A modern API backend built with **TypeScript**, **Hono**, and **PostgreSQL**.
 
-1. **Install Dependencies:**
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Hono](https://img.shields.io/badge/Hono-4-blue)](https://hono.dev/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](https://www.postgresql.org/)
+[![Drizzle](https://img.shields.io/badge/Drizzle-0.33-green)](https://orm.drizzle.team/)
+[![Better Auth](https://img.shields.io/badge/Better_Auth-1.1-green)](https://github.com/your-org/better-auth)
 
-   To install the necessary dependencies, run:
+</div>
 
-   ```sh
-   bun install
-   ```
+## 📚 Overview
 
-2. **Launch Local Database:**
+This project uses [Hono](https://hono.dev/) for the API framework, [Drizzle](https://orm.drizzle.team/) for database operations, and [Purify-ts](https://gigobyte.github.io/purify/) for functional programming patterns.
 
-   Start a PostgreSQL database using Docker:
+## ✨ Features
 
-   Lunch local db
+- ⚡️ Fast development with Bun runtime
+- 🔐 Type-safe API endpoints with Hono
+- 📦 PostgreSQL with Drizzle ORM
+- 🛡️ Request validation with Zod
+- 🚦 Functional error handling with Purify-ts
+- 🧪 TypeScript-first codebase
+- 🧩 Modular architecture
+- 🔒 Built-in authentication with Better Auth
 
-   ```sh
-   docker run --name my-postgres -e POSTGRES_PASSWORD=my_password -d -p 5432:5432 postgres
-   ```
+## 🚀 Quick Start
 
-3. **Configure Environment Variables:**
+### Prerequisites
 
-   Create a .env file in the root directory with the following content:
-   Example `.env` file:
+- [Bun](https://bun.sh/) (>=1.0.0)
+- [Docker](https://www.docker.com/) for PostgreSQL
+- [Node.js](https://nodejs.org/) (>=18)
 
-   ```env
-   DATABASE_CONNECTION_STRING='postgresql://postgres:my_password@localhost:5432/postgres'
-   ```
+### 1. Install Dependencies
 
-4. **Migrate Database Schema:**
+```sh
+bun install
+```
 
-   Apply the database migrations with:
-   Migrate schema
+### 2. Launch Local Database
 
-   ```sh
-   bun db:push
-   ```
+```sh
+docker run --name my-postgres -e POSTGRES_PASSWORD=my_password -d -p 5432:5432 postgres
+```
 
-## Usage
+### 3. Configure Environment Variables
 
-- To start the application in development mode, execute:
+```sh
+cp .env.example .env
+```
 
-  ```sh
-  bun dev
-  ```
+Required variables:
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATABASE_CONNECTION_STRING` | PostgreSQL connection URL | `postgresql://postgres:my_password@localhost:5432/postgres` |
+| `BETTER_AUTH_SECRET` | Secret key for auth | `random_string` |
+| `BETTER_AUTH_URL` | Auth service URL | `http://localhost:3000` |
+| `TRUSTED_ORIGINS` | Allowed CORS origins | `http://localhost:5173` |
 
-## Database Management
+### 4. Migrate Database Schema
 
-- To open Drizzle Studio:
+```sh
+bun db:push
+```
 
-  ```sh
-  bun db:studio
-  ```
+## 📦 Project Structure
 
-- To push schema changes to the database:
+```
+apps/api/
+├── src/
+│   ├── modules/        # Feature modules (auth, hello-world)
+│   ├── middleware/     # Custom middleware
+│   ├── types/         # Type definitions
+│   ├── helpers/       # Test helpers
+│   └── index.ts       # App entry point
+├── drizzle/
+│   ├── migrations/    # Database migrations
+│   ├── schema/       # Database schema
+│   └── utils/        # Schema utilities
+└── sst-infra.ts      # Infrastructure config
+```
 
-  ```sh
-  bun db:push
-  ```
+## 🛠️ Development
 
-- To pull schema changes from the database:
+### Available Scripts
 
-  ```sh
-  bun db:pull
-  ```
+| Command             | Description              |
+| ------------------- | ------------------------ |
+| `bun dev`           | Start development server |
+| `bun test`          | Run tests                |
+| `bun lint`          | Lint code                |
+| `bun db:studio`     | Open Drizzle Studio      |
+| `bun db:push`       | Push schema changes      |
+| `bun db:pull`       | Pull schema changes      |
+| `bun db:generate`   | Generate migrations      |
+| `bun auth:generate` | Generate auth schema     |
 
-- To generate TypeScript types from the database schema:
+## Core Concepts
 
-  ```sh
-  bun db:generate
-  ```
+### Code Organization
 
-## Core Concepts:
+#### Business Logic
 
-Effective software development relies on a well-organized codebase that is scalable, maintainable, and easy to test. A key principle in achieving this is the separation of concerns. By clearly distinguishing between core business logic, HTTP handling, and response management, we create a modular architecture that simplifies development and testing. This document outlines these core concepts and their roles in promoting consistency and clarity across the application.
+- **Purpose**: Encapsulates core business logic
+- **Location**: `src/modules/*/module.ts`
+- **Pattern**: Pure functions with explicit dependencies and Either types
 
-### Code
+Example:
 
-- **Purpose**: Encapsulates the core business logic.
-- **Functionality**: Takes dependencies and input, processes the input using the dependencies, and returns a result.
-- **Example**: In `hello-world.ts`, the `helloWorld` function logs a message and returns a greeting message.
+```ts
+import { EitherAsync } from 'purify-ts'
 
-### Handler
+export const helloWorld =
+  (dependencies: Dependencies) =>
+  (input: Input): Output =>
+    dependencies.saveName(input.id, input.name).map(() => ({
+      message: `Hello ${input.name}, you are ${input.age} years old`
+    }))
+```
 
-- **Purpose**: Acts as a bridge between the HTTP request and the core business logic.
-- **Functionality**: Validates the incoming request, prepares dependencies, invokes the core logic, and handles the response.
-- **Example**: In `hello-world.handler.ts`, the `helloWorldHandler` validates the query parameters, sets up the logger dependency, and calls the `helloWorld` function.
+#### Handlers
 
-### appResponse
+- **Purpose**: HTTP request handling
+- **Location**: `src/modules/*/handler.ts`
+- **Pattern**: Request validation, dependency injection and response formatting
 
-- **Purpose**: Standardizes the response format and error handling across the application.
-- **Functionality**: Provides middleware to handle the response and errors in a consistent manner.
-- **Example**: In `app-response.ts`, the `appResponseMiddleware` sets up a method to handle successful responses and different types of errors (e.g., `DependencyError`, `ValidationError`).
+Example:
+
+```ts
+import { factory } from '@factory'
+import { queryValidator } from '@validator'
+
+export const helloWorldHandler = factory.createHandlers(queryValidator(schema), async (c) => {
+  const input = c.req.valid('query')
+  return c.var.appResponse(await helloWorld(dependencies)(input))
+})
+```
 
 ## Technologies
 
-This project leverages a variety of modern technologies and libraries to ensure a robust and scalable application. Below is a brief overview of the key technologies used
+### Core Libraries
 
-### TypeScript
+#### Hono Framework
 
-TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale. It helps catch errors early through a type system and makes JavaScript development more efficient.
+Modern, lightweight API framework:
 
-### Bun
+```ts
+import { Hono } from 'hono'
+import { z } from 'zod'
 
-Bun is a fast JavaScript runtime like Node or Deno. It is designed to start fast, and it includes a bundler, transpiler, and package manager. This project uses Bun for running scripts and managing dependencies.
+const app = new Hono()
+app.get('/hello', async (c) => {
+  return c.json({ message: 'Hello World' })
+})
+```
 
-### Hono
+#### Drizzle ORM
 
-Hono is a small, fast, and secure web framework for building web applications and APIs. It is used in this project to handle HTTP requests and responses.
+Type-safe database operations:
 
-### Zod
+```ts
+import { db } from '@/lib/db'
+import { users } from '@/db/schema'
 
-Zod is a TypeScript-first schema declaration and validation library. It is used in this project to validate incoming data and ensure it meets the expected format.
+const user = await db.query.users.findFirst({
+  where: eq(users.id, userId)
+})
+```
 
-### Purify-ts
+### Better Auth
 
-Purify-ts is a functional programming library for TypeScript. It provides a set of tools for working with functional programming concepts like Either, Chain, and Map. Allowing to handle errors in a better way
+Better Auth is our authentication solution that provides secure, session-based authentication with the following features:
 
-### Drizzle ORM
+- 🔒 HTTP-only cookie session management
+- 🔑 Secure password hashing with Argon2
+- 🚫 CSRF protection
+- 📨 Email verification
+- 🔄 Refresh token rotation
+- 🌐 Multi-tenant support
 
-Drizzle ORM is a lightweight TypeScript ORM for SQL databases. It provides a type-safe way to interact with your database and is used in this project for database operations.
+Example usage:
 
-### ESLint and Prettier
+```ts
+import { auth } from '@/lib/auth'
 
-ESLint is a static code analysis tool for identifying problematic patterns found in JavaScript code. Prettier is an opinionated code formatter. Together, they help maintain code quality and consistency.
+// Login endpoint
+app.post('/login', async (c) => {
+  const session = await auth.createSession({
+    email,
+    password,
+    tenant: 'default'
+  })
 
-### PostgreSQL
+  return c.json(
+    {
+      user: session.user
+    },
+    {
+      cookies: session.cookies
+    }
+  )
+})
 
-PostgreSQL is a powerful, open-source object-relational database system. It is used in this project as the primary database for storing application data.
+// Protected route
+app.use('/api/*', auth.middleware())
+```
+
+#### Purify-ts
+
+Functional error handling:
+
+```ts
+import { Either } from 'purify-ts'
+
+const result = await Either.try(async () => {
+  // Your code here
+})
+```
+
+## 📝 ESLint Configuration
+
+For production applications, enable type-aware lint rules:
+
+```js
+// eslint.config.js
+export default tseslint.config({
+  languageOptions: {
+    parserOptions: {
+      project: ['./tsconfig.json'],
+      tsconfigRootDir: import.meta.dirname
+    }
+  }
+})
+```
